@@ -1,0 +1,9 @@
+node_modiles
+**/node_modules/
+build
+.vscode
+**/.vscode/
+.idea
+**/.idea/
+yarn.lock
+*.log
