@@ -31,8 +31,19 @@ $teal:                  #4ab0ce !default;
 $white:                 #fff !default;
 $black:                 #000 !default;
 
-$colors: $red, $orange, $lime, $green, $teal, $blue, $brown, $red-dark;
+// $colors: ($red, $orange, $lime, $green, $teal, $blue, $brown, $red-dark);
 $color-names: 'red', 'orange', 'lime', 'green', 'teal', 'blue', 'brown', 'red-dark';
+
+$colors:(
+  red: $red,
+  orange: $orange,
+  lime: $lime,
+  green: $green,
+  teal: $teal,
+  blue: $blue,
+  brown: $brown,
+  red-dark: $red-dark
+) !default;
 
 $gray-100: #f8f8f8 !default;
 $gray-200: #eee !default;
