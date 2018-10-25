@@ -11,7 +11,6 @@ import {
   InputGroupAddon,
   InputGroup,
   Input,
-  UncontrolledAlert,
   NavDropdown,
   NavbarBrand,
   Collapse,
@@ -57,7 +56,7 @@ class Header extends React.Component {
       supportOpen: false,
       settingsOpen: false,
       searchFocused: false,
-      searchOpen: false,
+      searchOpen: true,
     };
   }
 
@@ -110,12 +109,9 @@ class Header extends React.Component {
     return (
       <Navbar>
         <NavbarBrand className={s.logo} href="/">
-          Light <strong>Blue</strong>
+          <strong>Blue</strong>
         </NavbarBrand>
-        <UncontrolledAlert className={[s.alert, 'd-md-none-down ml-auto mr-3'].join(' ')}>
-          <i className="fa fa-info-circle mr-1" /> Check out Light Blue <a href="#" onClick={() => this.setState({ settingsOpen: true })}>settings</a> on
-          the right!
-        </UncontrolledAlert>
+        <div className="ml-auto" />
         <Collapse className={[s.searchCollapse, 'ml-auto ml-lg-0 mr-md-3'].join(' ')} isOpen={this.state.searchOpen}>
           <InputGroup className={`${s.navbarForm} ${this.state.searchFocused ? s.navbarFormFocused : ''}`}>
             <InputGroupAddon className={s.inputAddon}><i className="fa fa-search" /></InputGroupAddon>

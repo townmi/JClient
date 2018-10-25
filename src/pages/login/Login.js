@@ -58,7 +58,7 @@ class Login extends React.Component {
       <div className={s.root}>
         <Widget className={`${s.widget}`}>
           <header className="text-center">
-            <h5 className="fw-semi-bold">Login to your account</h5>
+            <h5 className="fw-semi-bold">登录系统</h5>
           </header>
           <Form className="mt" onSubmit={this.doLogin}>
             {
@@ -69,30 +69,30 @@ class Login extends React.Component {
               )
             }
             <FormGroup>
-              <Label for="email">Email</Label>
-              <InputGroup className={'input-group-lg'}>
-                <InputGroupAddon><i className="fa fa-user" /></InputGroupAddon>
-                <Input id="email" className="input-transparent" value={this.state.login} onChange={this.changeLogin} type="text" required placeholder="Your Email" />
+              <Label for="email">账户</Label>
+              <InputGroup>
+                <InputGroupAddon className={`${s.addon}`}><i className="fa fa-envelope-o fa-w" /></InputGroupAddon>
+                <Input id="email" className="input-transparent" value={this.state.login} onChange={this.changeLogin} type="text" required placeholder="你的邮箱" />
               </InputGroup>
             </FormGroup>
             <FormGroup>
-              <Label for="password">Password</Label>
-              <InputGroup className={'input-group-lg'}>
-                <InputGroupAddon><i className="fa fa-lock" /></InputGroupAddon>
-                <Input type="password" className="input-lg input-transparent" id="password" value={this.state.password} onChange={this.changePassword} placeholder="Your Password" />
+              <Label for="password">密码</Label>
+              <InputGroup>
+                <InputGroupAddon className={`${s.addon}`}><i className="fa fa-lock fa-w" /></InputGroupAddon>
+                <Input type="password" className="input-lg input-transparent" id="password" value={this.state.password} onChange={this.changePassword} placeholder="你的密码" />
               </InputGroup>
             </FormGroup>
             <div className={s.formActions}>
               <button type="submit" className="btn btn-block btn-danger btn-lg">
                 <span className={[s.smallCircle, 'mr-2'].join(' ')}><i className="fa fa-caret-right" /></span>
-                Sign In
+                登 录
               </button>
-              <a className={s.forgot} href="#">Forgot Username or Password?</a>
+              <a className={s.forgot} href="#">忘记您的账户或密码?</a>
             </div>
           </Form>
           <footer className={s.footer}>
             <div className={s.facebookLogin}>
-              <a href="#"><i className="fa fa-facebook-square fa-lg" /> LogIn with Facebook</a>
+              <a href="#"><i className="fa fa-wechat fa-lg" /> 微信授权登录</a>
             </div>
           </footer>
         </Widget>

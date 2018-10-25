@@ -25,6 +25,11 @@
   }
 }
 
+.addon {
+  width: 11%;
+  text-align: center;
+}
+
 .formActions {
   margin: 0 (-$widget-padding-horizontal);
   padding: 20px $widget-padding-horizontal 0;
@@ -60,7 +65,7 @@
 
   .facebookLogin {
     padding: 10px 0;
-    background: $blue;
+    background: $green;
     text-align: center;
 
     :global a {

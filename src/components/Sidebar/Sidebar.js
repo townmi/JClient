@@ -23,9 +23,9 @@ class Sidebar extends React.Component {
   render() {
     return (
       /* eslint-disable */
-      <nav className={[s.root, this.props.sidebarOpen ? s.sidebarOpen : '','sidebar'].join(' ')}
-           ref="element"
-           style={{height: this.props.sidebarOpen ? `${this.refs.element.scrollHeight}px` : 0}}>
+      <nav className={[s.root, this.props.sidebarOpen ? s.sidebarOpen : '', 'sidebar'].join(' ')}
+        ref="element"
+        style={{ height: this.props.sidebarOpen ? `${this.refs.element.scrollHeight}px` : 0 }}>
         <ul className={s.nav}>
           <LinksGroup header="Dashboard" headerLink="/app" iconName="fa-home" />
           <LinksGroup header="Another Page" headerLink="/app/another" iconName="fa-tree" />
