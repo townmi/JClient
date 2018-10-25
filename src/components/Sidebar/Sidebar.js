@@ -29,6 +29,7 @@ class Sidebar extends React.Component {
         <ul className={s.nav}>
           <LinksGroup header="Dashboard" headerLink="/app" iconName="fa-home" />
           <LinksGroup header="Another Page" headerLink="/app/another" iconName="fa-tree" />
+          <LinksGroup header="Products Page" headerLink="/app/products" iconName="fa-bars" />
         </ul>
         <h6 className={s.navTitle}>
           Labels
