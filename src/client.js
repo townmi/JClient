@@ -5,7 +5,6 @@ import FastClick from 'fastclick';
 import { createPath } from 'history/PathUtils';
 import history from './history';
 import App from './components/App';
-import createFetch from './createFetch';
 import configureStore from './store/configureStore';
 import { ErrorReporter, deepForceUpdate } from './devUtils';
 import theme from './styles/theme.scss';
@@ -23,10 +22,7 @@ const context = {
     const removeCss = styles.map(x => x._insertCss());
     return () => { removeCss.forEach(f => f()); };
   },
-  // Universal HTTP client
-  fetch: createFetch({
-    baseUrl: window.App.apiUrl,
-  }),
+  // fetch: null,
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
   store: configureStore(window.App.state, { history }),
@@ -144,7 +140,7 @@ if (__DEV__) {
   });
 }
 
- // Enable Hot Module Replacement (HMR)
+// Enable Hot Module Replacement (HMR)
 if (module.hot) {
   module.hot.accept('./components/App', () => {
     if (appInstance) {

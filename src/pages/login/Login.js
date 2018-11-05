@@ -13,9 +13,9 @@ class Login extends React.Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    location: PropTypes.isRequired,
+    location: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.isRequired,
+    errorMessage: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -61,13 +61,6 @@ class Login extends React.Component {
             <h5 className="fw-semi-bold">登录系统</h5>
           </header>
           <Form className="mt" onSubmit={this.doLogin}>
-            {
-              this.props.errorMessage && ( // eslint-disable-line
-                <Alert className="alert-sm" bsStyle="danger">
-                  {this.props.errorMessage}
-                </Alert>
-              )
-            }
             <FormGroup>
               <Label for="email">账户</Label>
               <InputGroup>
@@ -82,6 +75,13 @@ class Login extends React.Component {
                 <Input type="password" className="input-lg input-transparent" id="password" value={this.state.password} onChange={this.changePassword} placeholder="你的密码" />
               </InputGroup>
             </FormGroup>
+            {
+              this.props.errorMessage && ( // eslint-disable-line
+                <Alert className="alert-sm" color="danger">
+                  {this.props.errorMessage}
+                </Alert>
+              )
+            }
             <div className={s.formActions}>
               <button type="submit" className="btn btn-block btn-danger btn-lg">
                 <span className={[s.smallCircle, 'mr-2'].join(' ')}><i className="fa fa-caret-right" /></span>

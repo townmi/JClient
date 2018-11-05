@@ -20,18 +20,16 @@ const ContextType = {
   // Enables critical path CSS rendering
   // https://github.com/kriasoft/isomorphic-style-loader
   insertCss: PropTypes.func.isRequired,
-  // Universal HTTP client
-  fetch: PropTypes.func.isRequired,
   // Integrate Redux
   // http://redux.js.org/docs/basics/UsageWithReact.html
   ...ReduxProvider.childContextTypes,
 };
 
-// let isAuthenticated = function() {
+// let isAuthenticated = function () {
 //   let t = jwt.verify(cookie.load('id_token'), auth.jwt.secret);
-//
+
 //   console.log(t);
-//
+
 //   return true;
 // };
 
@@ -39,17 +37,17 @@ const ContextType = {
 const PrivateRoute = ({ component, isAuthenticated, ...rest }) => ( // eslint-disable-line
   <Route
     {...rest} render={props => (
-    isAuthenticated ? (
-      React.createElement(component, props)
-    ) : (
-      <Redirect
-        to={{
-          pathname: '/login',
-          state: { from: props.location }, // eslint-disable-line
-        }}
-      />
-    )
-  )}
+      isAuthenticated ? (
+        React.createElement(component, props)
+      ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location }, // eslint-disable-line
+            }}
+          />
+        )
+    )}
   />
 );
 

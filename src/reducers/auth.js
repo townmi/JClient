@@ -15,6 +15,7 @@ export default function auth(state = {
         isFetching: true,
         isAuthenticated: false,
         user: action.creds,
+        errorMessage: '',
       });
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
@@ -31,6 +32,7 @@ export default function auth(state = {
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
         isAuthenticated: false,
+        errorMessage: '',
       });
     default:
       return state;

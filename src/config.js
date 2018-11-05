@@ -28,7 +28,7 @@ module.exports = {
 
   // Authentication
   auth: {
-    jwt: { secret: process.env.JWT_SECRET || 'React Dashboard' },
+    jwt: { secret: process.env.JWT_SECRET || 'harry.tang' },
 
     // https://developers.facebook.com/
     facebook: {

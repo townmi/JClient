@@ -85,24 +85,22 @@ app.post('/login', (req, res) => {
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
+  console.log(req.user.user)
   try {
     const css = new Set();
 
-    const fetch = createFetch({
-      baseUrl: config.api.serverUrl,
-      cookie: req.headers.cookie,
-    });
+    const ajax = createFetch();
 
     const initialState = {
-      user: req.user || null,
+      user: req.user.user || null,
     };
 
     const store = configureStore(initialState, {
-      fetch,
+      ajax,
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
-    if (req.user && req.user.login) {
+    if (req.user && req.user.user.id) {
       store.dispatch(receiveLogin({
         id_token: req.cookies.id_token,
       }));
@@ -129,7 +127,6 @@ app.get('*', async (req, res, next) => {
         // eslint-disable-next-line no-underscore-dangle
         styles.forEach(style => css.add(style._getCss()));
       },
-      fetch,
       // You can access redux through react-redux connect
       store,
       storeSubscription: null,
@@ -160,7 +157,7 @@ app.get('*', async (req, res, next) => {
         context={context}
       >
         <Provider store={store}>
-          <App store={store} />
+          <App store={store} src="123" />
         </Provider>
       </StaticRouter>,
     );
