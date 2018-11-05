@@ -12,7 +12,6 @@ import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './pages/error/ErrorPage';
-import createFetch from './createFetch';
 import configureStore from './store/configureStore';
 import { receiveLogin, receiveLogout } from './actions/user';
 import { changeActiveSidebarItem } from './actions/navigation';
@@ -87,21 +86,20 @@ app.post('/login', (req, res) => {
 app.get('*', async (req, res, next) => {
   try {
     const css = new Set();
-
-    const ajax = createFetch();
-
     const initialState = {
-      user: req.user.user || null,
+      user: req.user || null,
     };
 
     const store = configureStore(initialState, {
-      ajax,
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
-    if (req.user && req.user.user.id) {
+    if (req.user && req.user.id) {
       store.dispatch(receiveLogin({
         id_token: req.cookies.id_token,
+        user: Object.assign({}, req.user, {
+          standard: null,
+        }),
       }));
     } else {
       store.dispatch(receiveLogout());
@@ -109,7 +107,6 @@ app.get('*', async (req, res, next) => {
 
     const theArr = req.url.split('/');
     theArr.pop();
-
     store.dispatch(changeActiveSidebarItem(theArr.join('/')));
 
     // store.dispatch(setRuntimeVariable({
@@ -151,12 +148,9 @@ app.get('*', async (req, res, next) => {
     };
 
     const html = ReactDOM.renderToString(
-      <StaticRouter
-        location={req.url}
-        context={context}
-      >
+      <StaticRouter location={req.url} context={context}>
         <Provider store={store}>
-          <App store={store} src="123" />
+          <App store={store} />
         </Provider>
       </StaticRouter>,
     );

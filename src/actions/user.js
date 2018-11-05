@@ -62,6 +62,7 @@ export function receiveLogin(user) {
     isFetching: false,
     isAuthenticated: true,
     id_token: user.token,
+    user: user.user
   };
 }
 
