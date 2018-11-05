@@ -1,7 +1,7 @@
 /* @flow */
 
 // import fetch from 'isomorphic-fetch';
-
+/* eslint-disable */
 import { API_DOMAIN } from './constants';
 import axios from 'axios';
 
@@ -21,6 +21,7 @@ function createFetch() {
   }
 }
 export default createFetch;
+/* eslint-enable  */
 
 // type Options = {
 //   baseUrl: string,

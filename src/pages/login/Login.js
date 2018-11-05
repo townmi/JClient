@@ -13,7 +13,7 @@ class Login extends React.Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    location: PropTypes.object.isRequired,
+    location: PropTypes.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
   };

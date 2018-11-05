@@ -33,7 +33,7 @@ const ContextType = {
 //   return true;
 // };
 
-
+/* eslint-disable */
 const PrivateRoute = ({ component, isAuthenticated, ...rest }) => ( // eslint-disable-line
   <Route
     {...rest} render={props => (
@@ -50,7 +50,7 @@ const PrivateRoute = ({ component, isAuthenticated, ...rest }) => ( // eslint-di
     )}
   />
 );
-
+/* eslint-enable  */
 class App extends React.PureComponent {
 
   static propTypes = {

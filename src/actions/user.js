@@ -5,6 +5,7 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
+/* eslint-disable */
 import { API_DOMAIN } from '../constants';
 import axios from 'axios';
 
@@ -16,6 +17,44 @@ function requestLogin(creds) {
     creds,
   };
 }
+const cookie = (name, value, options) => {
+	if (typeof value !== 'undefined') {
+		options = options || {};
+		if (value === null) {
+			value = '';
+			options = Object.assign({}, options);
+			options.expires = -1;
+		}
+		var expires = '';
+		if (options.expires && (typeof options.expires === 'number' || options.expires.toUTCString)) {
+			var date;
+			if (typeof options.expires == 'number') {
+				date = new Date();
+				date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
+			} else {
+				date = options.expires;
+			}
+			expires = '; expires=' + date.toUTCString();
+		}
+		var path = options.path ? '; path=' + (options.path) : '';
+		var domain = options.domain ? '; domain=' + (options.domain) : '';
+		var secure = options.secure ? '; secure' : '';
+		document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+	} else {
+		var cookieValue = null;
+		if (document.cookie && document.cookie != '') {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = cookies[i].replace(/(^\s*)|(\s*$)/g, '');
+				if (cookie.substring(0, name.length + 1) == (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+};
 
 export function receiveLogin(user) {
   return {
@@ -89,7 +128,7 @@ export function loginUser(creds) {
 
     return axios(options)
       .then(res => {
-        if (res.data && res.data.code != 0) {
+        if (res.data && res.data.code !== 0) {
           cookie('id_token', res.data.data.token, { path: '/', expires: 7 });
           dispatch(receiveLogin(res.data.data));
         } else {
@@ -116,42 +155,5 @@ export function loginUser(creds) {
 }
 
 
-const cookie = (name, value, options) => {
-	if (typeof value != "undefined") {
-		options = options || {};
-		if (value === null) {
-			value = "";
-			options = Object.assign({}, options);
-			options.expires = -1;
-		}
-		var expires = "";
-		if (options.expires && (typeof options.expires == "number" || options.expires.toUTCString)) {
-			var date;
-			if (typeof options.expires == "number") {
-				date = new Date();
-				date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
-			} else {
-				date = options.expires;
-			}
-			expires = "; expires=" + date.toUTCString();
-		}
-		var path = options.path ? "; path=" + (options.path) : "";
-		var domain = options.domain ? "; domain=" + (options.domain) : "";
-		var secure = options.secure ? "; secure" : "";
-		document.cookie = [name, "=", encodeURIComponent(value), expires, path, domain, secure].join("");
-	} else {
-		var cookieValue = null;
-		if (document.cookie && document.cookie != "") {
-			var cookies = document.cookie.split(";");
-			for (var i = 0; i < cookies.length; i++) {
-				var cookie = cookies[i].replace(/(^\s*)|(\s*$)/g, "");
-				if (cookie.substring(0, name.length + 1) == (name + "=")) {
-					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-					break;
-				}
-			}
-		}
-		return cookieValue;
-	}
-};
+/* eslint-enable  */
 

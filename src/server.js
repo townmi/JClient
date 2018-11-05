@@ -85,7 +85,6 @@ app.post('/login', (req, res) => {
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
-  console.log(req.user.user)
   try {
     const css = new Set();
 
