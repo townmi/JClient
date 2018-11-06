@@ -1,13 +1,11 @@
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 import { Row, Table } from 'reactstrap';
-import s from './Products.scss';
 
-class Products extends React.Component {
+class Goods extends React.Component {
   render() {
     return (
-      <div className={s.root}>
+      <div>
         <h1 className="page-title">Products</h1>
         <Row>
           <Table responsive hover>
@@ -46,4 +44,4 @@ class Products extends React.Component {
   }
 }
 
-export default (withStyles(s)(Products));
+export default ((Goods));

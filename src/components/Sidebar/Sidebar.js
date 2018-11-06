@@ -16,6 +16,13 @@ class Sidebar extends React.Component {
     sidebarOpen: PropTypes.bool.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentLinksGroup: '今日数据',
+    };
+  }
+
   dismissAlert(id) {
     this.props.dispatch(dismissAlert(id));
   }
@@ -27,9 +34,25 @@ class Sidebar extends React.Component {
         ref="element"
         style={{ height: this.props.sidebarOpen ? `${this.refs.element.scrollHeight}px` : 0 }}>
         <ul className={s.nav}>
-          <LinksGroup header="Dashboard" headerLink="/app" iconName="fa-home" />
-          <LinksGroup header="Another Page" headerLink="/app/another" iconName="fa-tree" />
-          <LinksGroup header="Products Page" headerLink="/app/products" iconName="fa-bars" />
+          <LinksGroup header="今日数据" headerLink="/app" iconName="fa-home" />
+          {/* <LinksGroup header="Another Page" headerLink="/app/another" iconName="fa-tree" /> */}
+          <LinksGroup isActive={this.state.currentLinksGroup === "货品板块"} header="货品板块" iconName="fa-bars"
+            childrenLinks={[
+              {
+                name: '货品列表',
+                link: '/app/goods',
+              },
+              {
+                name: '新增货品',
+                link: '/app/new/goods',
+              },
+            ]}
+            onActiveSidebarItemChange={() => {
+              this.setState({
+                currentLinksGroup: "货品板块"
+              })
+            }}
+          />
         </ul>
         <h6 className={s.navTitle}>
           Labels
