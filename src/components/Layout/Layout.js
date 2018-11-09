@@ -7,7 +7,8 @@ import { Switch, Route, withRouter } from 'react-router';
 // an example of react-router code-splitting
 /* eslint-disable */
 import loadAnother from 'bundle-loader?lazy!../../pages/another/Another';
-import loadProducts from 'bundle-loader?lazy!../../pages/products/Products';
+import loadGoodsList from 'bundle-loader?lazy!../../pages/goodsList/GoodsList';
+import loadGoods from 'bundle-loader?lazy!../../pages/goods/Goods';
 /* eslint-enable */
 
 import s from './Layout.scss';
@@ -19,7 +20,8 @@ import Bundle from '../../core/Bundle';
 import Dashboard from '../../pages/dashboard/Dashboard';
 
 const AnotherBundle = Bundle.generateBundle(loadAnother);
-const ProductsBundle = Bundle.generateBundle(loadProducts);
+const GoodsListBundle = Bundle.generateBundle(loadGoodsList);
+const GoodsBundle = Bundle.generateBundle(loadGoods);
 
 class Layout extends React.Component {
 
@@ -38,7 +40,9 @@ class Layout extends React.Component {
             <Switch>
               <Route path="/app" exact component={Dashboard} />
               <Route path="/app/another" exact component={AnotherBundle} />
-              <Route path="/app/products" exact component={ProductsBundle} />
+              <Route path="/app/goods" exact component={GoodsListBundle} />
+              <Route path="/app/goods/:id" exact component={GoodsBundle} />
+              <Route path="/app/new/goods" exact component={GoodsBundle} />
             </Switch>
           </main>
         </div>
