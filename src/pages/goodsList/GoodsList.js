@@ -11,7 +11,7 @@ import { getGoodsList } from '../../actions/goods';
 class GoodsList extends React.Component {
 
   static propTypes = {
-    goodsList: React.PropTypes.arrayOf(React.PropTypes.object)
+    goodsList: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   };
 
   constructor(props) {
