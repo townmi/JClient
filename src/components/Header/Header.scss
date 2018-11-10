@@ -76,6 +76,8 @@
 
   .inputAddon {
     border: none;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
     background-color: transparentize($text-transparent, 0.1);
     transition: background-color ease-in-out 0.15s;
   }

@@ -9,6 +9,7 @@ import { Switch, Route, withRouter } from 'react-router';
 import loadAnother from 'bundle-loader?lazy!../../pages/another/Another';
 import loadGoodsList from 'bundle-loader?lazy!../../pages/goodsList/GoodsList';
 import loadGoods from 'bundle-loader?lazy!../../pages/goods/Goods';
+import loadBrand from 'bundle-loader?lazy!../../pages/brand/Brand';
 /* eslint-enable */
 
 import s from './Layout.scss';
@@ -22,6 +23,7 @@ import Dashboard from '../../pages/dashboard/Dashboard';
 const AnotherBundle = Bundle.generateBundle(loadAnother);
 const GoodsListBundle = Bundle.generateBundle(loadGoodsList);
 const GoodsBundle = Bundle.generateBundle(loadGoods);
+const BrandBundle = Bundle.generateBundle(loadBrand);
 
 class Layout extends React.Component {
 
@@ -43,6 +45,7 @@ class Layout extends React.Component {
               <Route path="/app/goods" exact component={GoodsListBundle} />
               <Route path="/app/goods/:id" exact component={GoodsBundle} />
               <Route path="/app/new/goods" exact component={GoodsBundle} />
+              <Route path="/app/new/brand" exact component={BrandBundle} />
             </Switch>
           </main>
         </div>

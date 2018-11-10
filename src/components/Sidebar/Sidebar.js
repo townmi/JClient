@@ -36,7 +36,7 @@ class Sidebar extends React.Component {
         <ul className={s.nav}>
           <LinksGroup header="今日数据" headerLink="/app" iconName="fa-home" />
           {/* <LinksGroup header="Another Page" headerLink="/app/another" iconName="fa-tree" /> */}
-          <LinksGroup isActive={this.state.currentLinksGroup === "货品板块"} header="货品板块" iconName="fa-bars"
+          <LinksGroup isActive={this.state.currentLinksGroup === "货品板块"} header="货品板块" iconName="fa-list"
             childrenLinks={[
               {
                 name: '货品列表',
@@ -50,6 +50,23 @@ class Sidebar extends React.Component {
             onActiveSidebarItemChange={() => {
               this.setState({
                 currentLinksGroup: "货品板块"
+              })
+            }}
+          />
+          <LinksGroup isActive={this.state.currentLinksGroup === "品牌管理"} header="品牌管理" iconName="fa-star"
+            childrenLinks={[
+              {
+                name: '品牌板块',
+                link: '/app/goods',
+              },
+              {
+                name: '新增品牌',
+                link: '/app/new/brand',
+              },
+            ]}
+            onActiveSidebarItemChange={() => {
+              this.setState({
+                currentLinksGroup: "品牌管理"
               })
             }}
           />
