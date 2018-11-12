@@ -5,7 +5,7 @@ import {
   GET_BRAND_LIST_REQUEST,
   GET_BRAND_LIST_SUCCESS,
   GET_BRAND_LIST_FAILURE,
-} from '../actions/goods';
+} from '../actions/brand';
 
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,

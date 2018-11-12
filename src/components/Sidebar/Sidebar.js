@@ -46,6 +46,10 @@ class Sidebar extends React.Component {
                 name: '新增货品',
                 link: '/app/new/goods',
               },
+              {
+                name: '新增类型',
+                link: '/app/new/type',
+              },
             ]}
             onActiveSidebarItemChange={() => {
               this.setState({
@@ -57,7 +61,7 @@ class Sidebar extends React.Component {
             childrenLinks={[
               {
                 name: '品牌板块',
-                link: '/app/goods',
+                link: '/app/brand',
               },
               {
                 name: '新增品牌',

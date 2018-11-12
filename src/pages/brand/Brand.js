@@ -79,9 +79,8 @@ class Brand extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.goods.isFetching,
-    errorMessage: state.goods.errorMessage,
-    // newGoods: state.goods.newGoods,
+    isFetching: state.brand.isFetching,
+    errorMessage: state.brand.errorMessage,
   };
 }
 
