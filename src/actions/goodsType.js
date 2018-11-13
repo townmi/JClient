@@ -1,48 +1,46 @@
-export const CREATE_GOODS_REQUEST = 'CREATE_GOODS_REQUEST';
-export const CREATE_GOODS_SUCCESS = 'CREATE_GOODS_SUCCESS';
-export const CREATE_GOODS_FAILURE = 'CREATE_GOODS_FAILURE';
+export const CREATE_GOODS_TYPE_REQUEST = 'CREATE_GOODS_TYPE_REQUEST';
+export const CREATE_GOODS_TYPE_SUCCESS = 'CREATE_GOODS_TYPE_SUCCESS';
+export const CREATE_GOODS_TYPE_FAILURE = 'CREATE_GOODS_TYPE_FAILURE';
 
-export const GET_GOODS_LIST_REQUEST = 'GET_GOODS_LIST_REQUEST';
-export const GET_GOODS_LIST_SUCCESS = 'GET_GOODS_LIST_SUCCESS';
-export const GET_GOODS_LIST_FAILURE = 'GET_GOODS_LIST_FAILURE';
-
+export const GET_GOODS_TYPE_LIST_REQUEST = 'GET_GOODS_TYPE_LIST_REQUEST';
+export const GET_GOODS_TYPE_LIST_SUCCESS = 'GET_GOODS_TYPE_LIST_SUCCESS';
+export const GET_GOODS_TYPE_LIST_FAILURE = 'GET_GOODS_TYPE_LIST_FAILURE';
 
 /* eslint-disable */
 import { API_DOMAIN } from '../constants';
 import axios from 'axios';
 
-function requestCreateGoods(creds) {
+function requestCreateGoodsType(creds) {
     return {
-        type: CREATE_GOODS_REQUEST,
+        type: CREATE_GOODS_TYPE_REQUEST,
         isFetching: true,
         creds,
     };
 }
 
-export function receiveCreateGoods(goods) {
+export function receiveCreateGoodsType(goodsType) {
     return {
-        type: CREATE_GOODS_SUCCESS,
+        type: CREATE_GOODS_TYPE_SUCCESS,
         isFetching: false,
-        goods: goods,
+        goodsType: goodsType,
     };
 }
 
-function createGoodsError(message) {
+function createGoodsTypeError(message) {
     return {
-        type: CREATE_GOODS_FAILURE,
+        type: CREATE_GOODS_TYPE_FAILURE,
         isFetching: false,
         message,
     };
 }
 
-
-export function createGoods(creds, history) {
+export function createGoodsType(creds, history) {
     return (dispatch) => {
         if (!creds.picture) {
-            dispatch(createGoodsError("picture 不能为空"));
+            dispatch(createGoodsTypeError("picture 不能为空"));
             return;
         }
-        dispatch(requestCreateGoods(creds));
+        dispatch(requestCreateGoodsType(creds));
         return new Promise(function (resolve, reject) {
             let fd = new FormData();
             fd.append("file", creds.picture);
@@ -63,17 +61,19 @@ export function createGoods(creds, history) {
                     reject(err);
                 });
         }).then((path) => {
+            let data = {
+                name: creds.name,
+                picture: path,
+            }
+
+            if (creds.type) {
+                data.parentId = creds.type;
+            }
+
             const options = {
                 method: 'POST',
-                url: `${API_DOMAIN}/goods/create`,
-                data: {
-                    name: creds.name,
-                    sku: creds.sku,
-                    price: creds.price,
-                    desc: creds.description,
-                    picture: path,
-                    type: creds.type,
-                },
+                url: `${API_DOMAIN}/goods/type/create`,
+                data: data,
                 transformRequest: [function (data) {
                     let ret = ''
                     for (let it in data) {
@@ -88,12 +88,12 @@ export function createGoods(creds, history) {
             axios(options)
                 .then(res => {
                     if (res.data && res.data.code !== 0) {
-                        dispatch(receiveCreateGoods(res.data.data));
+                        dispatch(receiveCreateGoodsType(res.data.data));
                         history.push({
                             pathname: '/app/goods',
                         });
                     } else {
-                        dispatch(createGoodsError(res.data.message));
+                        dispatch(createGoodsTypeError(res.data.message));
                     }
                 }).catch(err => console.log('Error: ', err));
         }).catch(err => {
@@ -104,35 +104,34 @@ export function createGoods(creds, history) {
 
 }
 
-
-function requestGetGoodsList(creds) {
+function requestGetGoodsTypeList(creds) {
     return {
-        type: GET_GOODS_LIST_REQUEST,
+        type: GET_GOODS_TYPE_LIST_REQUEST,
         isFetching: true,
         creds,
     }
 }
 
-export function receiveGetGoodsList(goodsList) {
+export function receiveGetGoodsTypeList(goodsTypeList) {
     return {
-        type: GET_GOODS_LIST_SUCCESS,
+        type: GET_GOODS_TYPE_LIST_SUCCESS,
         isFetching: false,
-        goodsList: goodsList,
+        goodsTypeList: goodsTypeList,
     };
 }
 
-function getGoodsListError(message) {
+function getGoodsTypeListError(message) {
     return {
-        type: GET_GOODS_LIST_FAILURE,
+        type: GET_GOODS_TYPE_LIST_FAILURE,
         isFetching: false,
         message,
     };
 }
 
-export function getGoodsList(creds) {
+export function getGoodsTypeList(creds) {
     const options = {
         method: 'GET',
-        url: `${API_DOMAIN}/goods/list`,
+        url: `${API_DOMAIN}/goods/type/list`,
         params: {
             limit: creds.limit,
             offset: creds.offset,
@@ -141,13 +140,13 @@ export function getGoodsList(creds) {
     };
 
     return (dispatch) => {
-        dispatch(requestGetGoodsList(creds))
+        dispatch(requestGetGoodsTypeList(creds))
         return axios(options)
             .then(res => {
                 if (res.data && res.data.code !== 0) {
-                    dispatch(receiveGetGoodsList(res.data.data));
+                    dispatch(receiveGetGoodsTypeList(res.data.data));
                 } else {
-                    dispatch(getGoodsListError(res.data.message));
+                    dispatch(getGoodsTypeListError(res.data.message));
                 }
             }).catch(err => console.log('Error: ', err));
     }

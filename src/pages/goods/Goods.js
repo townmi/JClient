@@ -5,12 +5,14 @@ import { withRouter } from 'react-router';
 import { Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
 
 import { createGoods } from '../../actions/goods';
+import { getGoodsTypeList } from '../../actions/goodsType';
 
 class Goods extends React.Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     errorMessage: PropTypes.string.isRequired,
+    goodsTypeList: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   };
 
   constructor(props) {
@@ -22,6 +24,7 @@ class Goods extends React.Component {
       price: '',
       description: '',
       picture: '',
+      type: '',
     };
 
     this.doSubmit = this.doSubmit.bind(this);
@@ -30,6 +33,11 @@ class Goods extends React.Component {
     this.changePrice = this.changePrice.bind(this);
     this.changeDescription = this.changeDescription.bind(this);
     this.changePicture = this.changePicture.bind(this);
+    this.changeType = this.changeType.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(getGoodsTypeList({}));
   }
 
   changeName(event) {
@@ -57,6 +65,10 @@ class Goods extends React.Component {
     }
   }
 
+  changeType(event) {
+    this.setState({ type: event.target.value });
+  }
+
   doSubmit(e) {
     this.props.dispatch(createGoods({
       name: this.state.name,
@@ -64,6 +76,7 @@ class Goods extends React.Component {
       price: this.state.price,
       description: this.state.description,
       picture: this.state.picture,
+      type: this.state.type,
     }, this.props.history)); // eslint-disable-line
     e.preventDefault();
   }
@@ -80,13 +93,28 @@ class Goods extends React.Component {
                 <Input type="text" value={this.state.name} onChange={this.changeName} id="name" placeholder="请输入产品名称" />
               </FormGroup>
             </Col>
-            <Col md={3}>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="price">产品类型</Label>
+                <Input type="select" onChange={this.changeType} id="type">
+                  <option value="">请选择货物的类型</option>
+                  {
+                    this.props.goodsTypeList.map(cell => (
+                      <option key={cell.id} value={cell.id}>{cell.name}</option>
+                    ))
+                  }
+                </Input>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row form>
+            <Col md={6}>
               <FormGroup>
                 <Label for="sku">产品SKU码</Label>
                 <Input type="text" value={this.state.sku} onChange={this.changeSku} id="sku" placeholder="请输入产品SKU码" />
               </FormGroup>
             </Col>
-            <Col md={3}>
+            <Col md={6}>
               <FormGroup>
                 <Label for="price">产品价格</Label>
                 <Input type="number" value={this.state.price} onChange={this.changePrice} id="price" placeholder="请输入产品价格" />
@@ -122,6 +150,7 @@ function mapStateToProps(state) {
   return {
     isFetching: state.goods.isFetching,
     errorMessage: state.goods.errorMessage,
+    goodsTypeList: state.goodsType.goodsTypeList,
     // newGoods: state.goods.newGoods,
   };
 }

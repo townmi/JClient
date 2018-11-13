@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
 
-import { createGoods } from '../../actions/goods';
+import { getGoodsTypeList, createGoodsType } from '../../actions/goodsType';
 
 class GoodsType extends React.Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     errorMessage: PropTypes.string.isRequired,
+    goodsTypeList: PropTypes.arrayOf(React.PropTypes.object).isRequired,
   };
 
   constructor(props) {
@@ -26,6 +27,10 @@ class GoodsType extends React.Component {
     this.changeName = this.changeName.bind(this);
     this.changeType = this.changeType.bind(this);
     this.changePicture = this.changePicture.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(getGoodsTypeList({}));
   }
 
   changeName(event) {
@@ -46,7 +51,7 @@ class GoodsType extends React.Component {
   }
 
   doSubmit(e) {
-    this.props.dispatch(createGoods({
+    this.props.dispatch(createGoodsType({
       name: this.state.name,
       type: this.state.type,
       picture: this.state.picture,
@@ -70,9 +75,12 @@ class GoodsType extends React.Component {
               <FormGroup>
                 <Label for="type">货物种类类型</Label>
                 <Input type="select" onChange={this.changeType} id="type">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
+                  <option value="">请选择货物的类型</option>
+                  {
+                    this.props.goodsTypeList.map(cell => (
+                      <option key={cell.id} value={cell.id}>{cell.name}</option>
+                    ))
+                  }
                 </Input>
               </FormGroup>
             </Col>
@@ -100,9 +108,9 @@ class GoodsType extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.goods.isFetching,
-    errorMessage: state.goods.errorMessage,
-    // newGoods: state.goods.newGoods,
+    isFetching: state.goodsType.isFetching,
+    errorMessage: state.goodsType.errorMessage,
+    goodsTypeList: state.goodsType.goodsTypeList,
   };
 }
 
